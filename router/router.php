@@ -1,8 +1,11 @@
 <?php
-require_once "dumper.php";
-require_once "model/ConfigModel.php";
-require_once "model/UserModel.php";
-require_once "controller/UserController.php";
+// автолоадер классов 
+require_once 'vendor/autoload.php';
+
+// настройки подключения к базе 
+require_once 'config.php';
+
+$config->connectDataBase();
 
 
 $commonActions = ['showQuestion', 'editNew', 'addNewQuestion', 'showAddForm'];

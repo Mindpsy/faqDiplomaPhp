@@ -1,8 +1,5 @@
 <?php 
 
-$config = new ConfigModel('localhost', 'faqData', 'root', '');
-$config->connectDataBase();
-
 class ConfigModel {
     public $host, $dbname, $login, $password, $pdo;
 

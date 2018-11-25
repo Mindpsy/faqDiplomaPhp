@@ -1,9 +1,4 @@
 <?php 
-require_once 'model/UserModel.php';
-require_once 'model/QuestionModel.php';
-require_once 'model/ThemeModel.php';
-require_once 'model/AnswerModel.php';
-
 
 class UserController {
     public $config;
@@ -39,7 +34,7 @@ class UserController {
             $question = $_GET['question'];
             $idAuthor = $userModel->addNewUser($name, $email);
             $questionModel->addNewQuestion($idTheme, $question, $idAuthor);
-            header('location: /');
+            header('location: index.php');
 
         } else {
             $themeModel = new ThemeModel($this->config);

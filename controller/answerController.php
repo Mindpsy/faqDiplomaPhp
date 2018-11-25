@@ -1,6 +1,4 @@
 <?php 
-require_once 'model/AnswerModel.php';
-require_once 'controller/QuestionController.php';
 
 class AnswerController {
     public $config;

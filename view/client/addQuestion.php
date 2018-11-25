@@ -60,7 +60,7 @@
 						Отправить
 						<i class="material-icons right">send</i>
 					</button>
-					<a href="/" class="btn red col s6 m6 l6">
+					<a href="index.php" class="btn red col s6 m6 l6">
 						Назад
 						<i class="material-icons right">stop</i>
 					</a>

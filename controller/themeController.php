@@ -1,7 +1,4 @@
 <?php
-require_once 'model/ThemeModel.php';
-require_once 'model/QuestionModel.php';
-require_once 'controller/QuestionController.php';
 
 class ThemeController {
     public $config;

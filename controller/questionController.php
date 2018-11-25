@@ -1,8 +1,4 @@
 <?php 
-require_once 'model/QuestionModel.php';
-require_once 'model/AnswerModel.php';
-require_once 'model/UserModel.php';
-require_once 'model/ThemeModel.php';
 
 class QuestionsController {
 
@@ -43,7 +39,7 @@ class QuestionsController {
             }
             
             $answerModel->deleteAnswer($idQuestion);
-            header("location: admin.php?controller=Questions&action={$action}{$idTheme}");
+            header("location: admin.php?controller=Questions&action={$action}&{$idTheme}");
         }
     }
 

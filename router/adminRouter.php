@@ -1,12 +1,20 @@
 <?php
 session_start();
+
+// полезная функция для отладки 
 require_once 'dumper.php';
-require_once 'model/ConfigModel.php';
-require_once 'model/AdminModel.php';
+
+// автолоадер классов 
+require_once 'vendor/autoload.php';
+
+// настройки подключения к базе 
+require_once 'config.php';
+
+// подключаемся к базе 
+$config->connectDataBase();
 
 
-// настраиваем подключение к базе 
-// указываем хост имя базы, логин и пароль соответсвенно 
+
 
 // далее закоментированные строки можно разкоментировать чтобы не загружать дамп базы
 // просто создав их через php 
@@ -46,7 +54,7 @@ if(isset($_SESSION['authStatus'])) {
     }
 
     if ($controller === 'Questions') {
-        require_once 'controller/QuestionController.php';
+        // require_once 'controller/QuestionController.php';
         $controllerQuestion = new QuestionsController ($config);
         
         if ($action === 'showNewQuestions') {
@@ -78,7 +86,7 @@ if(isset($_SESSION['authStatus'])) {
         }
     
     }  else if ($controller === 'admins') {
-        require_once 'controller/AdminController.php';
+        // require_once 'controller/AdminController.php';
         $adminController = new AdminController($config);
 
         if ($action === 'showList') {
@@ -105,7 +113,7 @@ if(isset($_SESSION['authStatus'])) {
         }
 
     } else if ($controller === 'themes') {
-        require_once 'controller/ThemeController.php';
+        // require_once 'controller/ThemeController.php';
         $controllerTheme = new ThemeController($config);
 
         if ($action === 'showList') {
@@ -123,7 +131,7 @@ if(isset($_SESSION['authStatus'])) {
         }
 
     }  else if ($controller === 'answers') {
-        require_once 'controller/AnswerController.php';
+        // require_once 'controller/AnswerController.php';
         $controllerAnswer = new AnswerController($config);
 
         if ($action === 'editNewAnswer') {
@@ -152,7 +160,7 @@ if(isset($_SESSION['authStatus'])) {
     }
 
     require_once 'controller/AdminController.php';
-    $adminController = new AdminController($config);
+    // $adminController = new AdminController($config);
 
     if($controller === 'form') {
         if ($action === 'auth') {
