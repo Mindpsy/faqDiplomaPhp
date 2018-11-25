@@ -1,8 +1,8 @@
 <?php
 session_start();
 require_once 'dumper.php';
-require_once 'model/configModel.php';
-require_once 'model/adminModel.php';
+require_once 'model/ConfigModel.php';
+require_once 'model/AdminModel.php';
 
 
 // настраиваем подключение к базе 
@@ -34,9 +34,9 @@ if(isset($_SESSION['authStatus'])) {
     if (!isset($_GET['controller']) && !isset($_GET['action'])) {
         $controller = 'themes';
         $action = 'showList';
-        // для сокращения кода используем функцию in_arrAY она работает с масивами для controller и action
+        // для сокращения кода используем функцию in_array она работает с масивами для controller и action
         // и контроллирует заначения этих переменных 
-    } else if (in_arrAY($_GET['controller'], $commonControllers) && in_arrAY($_GET['action'], $commonActions)) {
+    } else if (in_array($_GET['controller'], $commonControllers) && in_array($_GET['action'], $commonActions)) {
         $controller = $_GET['controller'];
         $action = $_GET['action'];
 
@@ -46,91 +46,91 @@ if(isset($_SESSION['authStatus'])) {
     }
 
     if ($controller === 'Questions') {
-        require_once 'controller/questionController.php';
-        $controllerQuestion = new QuestionsController ();
+        require_once 'controller/QuestionController.php';
+        $controllerQuestion = new QuestionsController ($config);
         
         if ($action === 'showNewQuestions') {
-            $controllerQuestion->showAllNewQuestions($config);
+            $controllerQuestion->showAllNewQuestions();
 
         } else if ($action === 'showList') {
-            $controllerQuestion->showQuestionsOfTheme($config);
+            $controllerQuestion->showQuestionsOfTheme();
             
         } else if ($action === 'delete') {
-            $controllerQuestion->deleteQuestion($config);
+            $controllerQuestion->deleteQuestion();
             
         }  else if ($action === 'edit') {
-            $controllerQuestion->editQuestion($config);
+            $controllerQuestion->editQuestion();
             
         }  else if ($action === 'fixEdit') {
-            $controllerQuestion->fixEditQuestionAnswerUser($config);
+            $controllerQuestion->fixEditQuestionAnswerUser();
             
         }  else if ($action === 'showPublList') {
-            $controllerQuestion->showPublList($config);
+            $controllerQuestion->showPublList();
             
         }  else if ($action === 'showWithoutAnswerList') {
-            $controllerQuestion->showWithoutAnswerList($config);
+            $controllerQuestion->showWithoutAnswerList();
             
         } else if ($action === 'toPublQuestion') {
-            $controllerQuestion->addPublStatusQuestionFromList($config);
+            $controllerQuestion->addPublStatusQuestionFromList();
 
         } else if ($action === 'toHideQuestion') {
-            $controllerQuestion->addHidelStatusQuestionFromList($config);
+            $controllerQuestion->addHidelStatusQuestionFromList();
         }
     
     }  else if ($controller === 'admins') {
-        require_once 'controller/adminController.php';
-        $adminController = new AdminController();
+        require_once 'controller/AdminController.php';
+        $adminController = new AdminController($config);
 
         if ($action === 'showList') {
-            $adminController->showListAdmins($config);
+            $adminController->showListAdmins();
 
         } else if ($action === 'exitAcc') {
             $adminController->exitAcc();
 
         } else if ($action === 'editNew') {
-            $adminController->fillFormNewAdmin($config);
+            $adminController->fillFormNewAdmin();
 
         } else if ($action === 'fixNewEdit') {
-            $adminController->fixEditionNewAdmin($config);
+            $adminController->fixEditionNewAdmin();
 
         } else if ($action === 'edit') {
-            $adminController->toEditAdmin($config);
+            $adminController->toEditAdmin();
 
         } else if ($action === 'fixEdit') {
-            $adminController->fixEditAdmin($config);
+            $adminController->fixEditAdmin();
 
         } else if ($action === 'delete') { 
-            $adminController->deleteAdmin($config);
+            $adminController->deleteAdmin();
 
         }
 
     } else if ($controller === 'themes') {
-        require_once 'controller/themeController.php';
-        $controllerTheme = new ThemeController();
+        require_once 'controller/ThemeController.php';
+        $controllerTheme = new ThemeController($config);
 
         if ($action === 'showList') {
-            $controllerTheme->showThemes($config);
+            $controllerTheme->showThemes();
 
         } else if ($action === 'editNew') {
-            $controllerTheme->fillNewTheme($config);
+            $controllerTheme->fillNewTheme();
 
         } else if ($action === 'addNew') {
-            $controllerTheme->addNewTheme($config);
+            $controllerTheme->addNewTheme();
 
         } else if ($action === 'delete') {
-            $controllerTheme->delTheme($config);
+            $controllerTheme->delTheme();
 
         }
 
     }  else if ($controller === 'answers') {
-        require_once 'controller/answerController.php';
-        $controllerAnswer = new AnswerController();
+        require_once 'controller/AnswerController.php';
+        $controllerAnswer = new AnswerController($config);
 
         if ($action === 'editNewAnswer') {
-            $controllerAnswer->showEditFormAnswer($config);
+            $controllerAnswer->showEditFormAnswer();
 
         } else if ($action === 'addNew') {
-            $controllerAnswer->addNewAnswer($config);
+            $controllerAnswer->addNewAnswer();
         }
 
     }
@@ -142,7 +142,7 @@ if(isset($_SESSION['authStatus'])) {
         $controller = 'form';
         $action = 'auth';
 
-    } else if (in_arrAY($_GET['controller'], $commonControllers) && in_arrAY($_GET['action'], $commonActions)) {
+    } else if (in_array($_GET['controller'], $commonControllers) && in_array($_GET['action'], $commonActions)) {
         $controller = $_GET['controller'];
         $action = $_GET['action'];
         
@@ -151,8 +151,8 @@ if(isset($_SESSION['authStatus'])) {
         $action = 'auth';
     }
 
-    require_once 'controller/adminController.php';
-    $adminController = new AdminController();
+    require_once 'controller/AdminController.php';
+    $adminController = new AdminController($config);
 
     if($controller === 'form') {
         if ($action === 'auth') {
@@ -161,12 +161,10 @@ if(isset($_SESSION['authStatus'])) {
 
     } else if ($controller === 'base') {
         if ($action === 'login') {
-            $adminController->authorise($config);
+            $adminController->authorise();
         }
         
     }
 
 
 }
-
-?>

@@ -1,28 +1,34 @@
 <?php
 class AnswerModel {
-    public function getAnswerForIdQuestion($config, $idQuestion) {
+    public $config;
+
+    public function __construct($config) {
+        $this->config = $config;
+    }
+    
+    public function getAnswerForIdQuestion($idQuestion) {
         $tmpSql = "select answer from answers where id_question=?";
-        $res = $config->makerSqlQuery($tmpSql, ["$idQuestion"]);
+        $res = $this->config->makerSqlQuery($tmpSql, ["$idQuestion"]);
         if(isset($res[0]['answer'])) {
             return $res[0]['answer'];
         }
     }
 
-    public function addNewAnswer ($config, $idQuestion, $answer) {
+    public function addNewAnswer ($idQuestion, $answer) {
         $tmpSql = "insert into answers(id_question, answer) values(?, ?)";
-        $res = $config->makerSqlQuery($tmpSql, ["$idQuestion", "$answer"]);
+        $res = $this->config->makerSqlQuery($tmpSql, ["$idQuestion", "$answer"]);
         return $res;
     }
 
-    public function updateAnswer ($config, $answer, $idQuestion) {
+    public function updateAnswer ($answer, $idQuestion) {
         $tmpSql = "update answers set answer = ? where id_question=? limit 1";
-        $res = $config->makerSqlQuery($tmpSql, ["$answer", "$idQuestion"]);
+        $res = $this->config->makerSqlQuery($tmpSql, ["$answer", "$idQuestion"]);
         return $res;
     }
 
-    public function deleteAnswer ($config, $idQuestion) {
+    public function deleteAnswer ($idQuestion) {
         $tmpSql = "delete from answers where id_question=?";
-        $res = $config->makerSqlQuery($tmpSql, ["$idQuestion"]);
+        $res = $this->config->makerSqlQuery($tmpSql, ["$idQuestion"]);
         return $res;
     }
 
@@ -40,4 +46,3 @@ class AnswerModel {
     }
 
 }
-?>

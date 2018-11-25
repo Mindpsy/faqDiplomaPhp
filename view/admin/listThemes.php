@@ -46,9 +46,9 @@
                     <div class="card blue-grey darken-1">
                         <div class="card-content white-text">
                             <span class="card-title"><?=$item['name'];?></span>
-                            <p>всего вопросов: (<?=$questionModel->getCountQuestion($config, $id);?>) ||
-                            опубликованных: (<?=$questionModel->getCountPublQuestion($config, $id);?>) ||
-                            без ответа: (<?=$questionModel->getCountDontPublQuestion($config, $id);?>)</p>
+                            <p>всего вопросов: (<?=$questionModel->getCountQuestion($id);?>) ||
+                            опубликованных: (<?=$questionModel->getCountPublQuestion($id);?>) ||
+                            без ответа: (<?=$questionModel->getCountDontPublQuestion($id);?>)</p>
                         </div>
                         <div class="card-action">
                             <a href="admin.php?controller=Questions&action=showList&idTheme=<?=$id;?>">Перейти в тему</a>

@@ -1,8 +1,8 @@
 <?php
 require_once "dumper.php";
-require_once "model/configModel.php";
-require_once "model/userModel.php";
-require_once "controller/userController.php";
+require_once "model/ConfigModel.php";
+require_once "model/UserModel.php";
+require_once "controller/UserController.php";
 
 
 $commonActions = ['showQuestion', 'editNew', 'addNewQuestion', 'showAddForm'];
@@ -13,7 +13,7 @@ if (!isset($_GET['controller']) && !isset($_GET['action'])) {
     $controller = 'users';
     $action = 'showQuestions';
 
-} else if (in_arrAY($_GET['controller'], $commonControllers) && in_arrAY($_GET['action'], $commonActions)) {
+} else if (in_array($_GET['controller'], $commonControllers) && in_array($_GET['action'], $commonActions)) {
     $action = $_GET['action'];
     $controller = $_GET['controller'];
 
@@ -24,18 +24,18 @@ if (!isset($_GET['controller']) && !isset($_GET['action'])) {
 }
 
 if ($controller === 'users') {
-    $userController = new UserController();
+    $userController = new UserController($config);
+    
 
     if ($action === 'showQuestions') {
-        $userController->showQuestions($config);
+        $userController->showQuestions();
 
     } else if ($action === 'showAddForm') {
-        $userController->showAddForm($config);
+        $userController->showAddForm();
 
     } else if ($action === 'addNewQuestion') {
-        $userController->addNewQuestion($config);      
+        $userController->addNewQuestion();      
 
     }
 
 }
-?>

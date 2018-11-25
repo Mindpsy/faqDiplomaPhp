@@ -1,13 +1,19 @@
 <?php 
 class ThemeModel {
-    public function getListThemes ($config) {
+    public $config;
+
+    public function __construct($config) {
+        $this->config = $config;
+    }
+    public function getListThemes () {
         $tmpSql = "select id, name from themes";
-        $res = $config->makerSqlQuery($tmpSql);
+        $res = $this->config->makerSqlQuery($tmpSql);
         return $res;
 
     }
 
-    public function render ($list, $config, $questionModel) {
+    public function render ($list, $questionModel) {
+        $config = $this->config;
         require_once "view/admin/listThemes.php";
     }
 
@@ -16,18 +22,17 @@ class ThemeModel {
 
     }
 
-    public function addNewTheme ($config, $nameTheme) {
+    public function addNewTheme ($nameTheme) {
         $tmpSql = "insert into themes(name) values(?)";
-        $res = $config->makerSqlQuery($tmpSql, ["$nameTheme"]);
+        $res = $this->config->makerSqlQuery($tmpSql, ["$nameTheme"]);
         return $res;
     }
 
-    public function delTheme ($config, $idTheme) {
+    public function delTheme ($idTheme) {
         $tmpSql = "delete from themes where id=?";
-        $res = $config->makerSqlQuery($tmpSql, ["$idTheme"]);
+        $res = $this->config->makerSqlQuery($tmpSql, ["$idTheme"]);
         return $res;
     }
 
     
 }
-?>

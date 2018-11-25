@@ -28,5 +28,4 @@ function dumperGet(&$obj, $leftSp = "") {
         $buf .= "\n$leftSp$k => ".dumperGet($v, $leftSp); 
     } 
     return $buf; 
-} 
-?>
+}

@@ -1,9 +1,9 @@
 <?php 
 
-$config = new Config('localhost', 'faqData', 'root', '');
+$config = new ConfigModel('localhost', 'faqData', 'root', '');
 $config->connectDataBase();
 
-class Config {
+class ConfigModel {
     public $host, $dbname, $login, $password, $pdo;
 
     public $createTableUsers = "CREATE TABLE IF NOT EXISTS `users` (
@@ -81,4 +81,3 @@ class Config {
         
     }
 }
-?>

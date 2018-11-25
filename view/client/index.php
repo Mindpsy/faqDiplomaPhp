@@ -38,10 +38,12 @@
 
 				<li class="cd-faq-title"><h2><?=$theme['name']?></h2></li>
 				
-				<?php $questionList = QuestionModel::getListPublQuestions($config, $theme['id']); ?>
+				<?php $questionModel = new QuestionModel($config); 
+					$questionList = $questionModel->getListPublQuestions($theme['id']); ?>
 				<?php if($questionList): ?>
 					<?php foreach($questionList as $question): ?>
-						<?php $answer = AnswerModel::getAnswerForIdQuestion($config, $question['id']) ?>
+						<?php $answerModel = new AnswerModel($config);
+						$answer = $answerModel->getAnswerForIdQuestion($question['id']) ?>
 
 					<li>
 						<a class="cd-faq-trigger" href="#0"><?=$question['question'];?></a>

@@ -2,17 +2,23 @@
 
 class UserModel {
 
-    public function addNewUser ($config, $name, $email) {
+public $config;
+
+public function __construct($config) {
+    $this->config = $config;
+}
+
+    public function addNewUser ($name, $email) {
         $tmpSql = "insert into users(name, email) values(?, ?)";
-        $res = $config->makerSqlQuery($tmpSql, ["$name", "$email"]);
+        $res = $this->config->makerSqlQuery($tmpSql, ["$name", "$email"]);
         $tmpSql2 = "select id from users where name=? and email=?";
-        $res2 = $config->makerSqlQuery($tmpSql2, ["$name", "$email"]);
+        $res2 = $this->config->makerSqlQuery($tmpSql2, ["$name", "$email"]);
         return $res2[0]['id'];
     }
 
-    public function updateAuthor ($config, $newNameAuthor, $idAuthor) {
+    public function updateAuthor ($newNameAuthor, $idAuthor) {
         $tmpSql = "update users set name = ? where id=? limit 1";
-        $res = $config->makerSqlQuery($tmpSql, ["$newNameAuthor", "$idAuthor"]);
+        $res = $this->config->makerSqlQuery($tmpSql, ["$newNameAuthor", "$idAuthor"]);
         return $res;
     }
     
@@ -21,4 +27,3 @@ class UserModel {
     }
 
 }
-?>

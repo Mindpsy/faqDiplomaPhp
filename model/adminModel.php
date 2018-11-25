@@ -1,10 +1,15 @@
 <?php 
 
-class adminModel {
+class AdminModel {
+    public $config;
 
-    public function login ($config, $login, $password) {
+    public function __construct($config) {
+        $this->config = $config;
+    }
+
+    public function login ($login, $password) {
         $sqlLogin = "SELECT id, name, email, login FROM admins WHERE login=? AND password=?";
-        $res = $config->makerSqlQuery($sqlLogin, ["$login", "$password"]);
+        $res = $this->config->makerSqlQuery($sqlLogin, ["$login", "$password"]);
         if($res) {
             $_SESSION['login'] = $res[0]['login'];
             $_SESSION['authStatus'] = 'true';
@@ -22,9 +27,9 @@ class adminModel {
         require_once 'view/admin/listAdmins.php';
     }
 
-    public function getListAdmins($config) {
+    public function getListAdmins() {
         $tmpSql = 'select * from admins';
-        $res = $config->makerSqlQuery($tmpSql);
+        $res = $this->config->makerSqlQuery($tmpSql);
         return $res;
     }
 
@@ -32,27 +37,27 @@ class adminModel {
         require_once "view/admin/editNewAdmin.php";
         
     }
-    public function isLoginExist ($config, $login) {
+    public function isLoginExist ($login) {
         $tmpSql = 'select id from admins where login=?';
-        $res = $config->makerSqlQuery($tmpSql, ["$login"]);
+        $res = $this->config->makerSqlQuery($tmpSql, ["$login"]);
         return $res;
     }
 
-    public function createNewAdmin ($config, $name, $login, $email, $password) {
+    public function createNewAdmin ($name, $login, $email, $password) {
         $tmpSql = 'insert into admins(name, login, email, password) values(?, ?, ?, ?)';
-        $res = $config->makerSqlQuery($tmpSql, ["$name", "$login", "$email", "$password"]);
+        $res = $this->config->makerSqlQuery($tmpSql, ["$name", "$login", "$email", "$password"]);
         return $res;
     }
 
-    public function deleteAdmin ($config, $idAdmin) {
+    public function deleteAdmin ($idAdmin) {
         $tmpSql = 'delete from admins where id=?';
-        $res = $config->makerSqlQuery($tmpSql, ["$idAdmin"]);
+        $res = $this->config->makerSqlQuery($tmpSql, ["$idAdmin"]);
         return $res;
     }
 
-    public function getAdminDataForId ($config, $idAdmin) {
+    public function getAdminDataForId ($idAdmin) {
         $tmpSql = 'select * from admins where id=?';
-        $res = $config->makerSqlQuery($tmpSql, ["$idAdmin"]);
+        $res = $this->config->makerSqlQuery($tmpSql, ["$idAdmin"]);
         return $res;
     }
 
@@ -61,15 +66,15 @@ class adminModel {
         
     }
 
-    public function updateAdmin ($config, $idAdmin, $name, $email, $password) {
+    public function updateAdmin ($idAdmin, $name, $email, $password) {
         $tmpSql = "update admins set name=?, email=?, password=? where id=?";
-        $res = $config->makerSqlQuery($tmpSql, ["$name", "$email", "$password", "$idAdmin"]);
+        $res = $this->config->makerSqlQuery($tmpSql, ["$name", "$email", "$password", "$idAdmin"]);
         return $res;
     }
 
-    public function createBaseAdmin ($config, $name, $login, $email, $password) {
+    public function createBaseAdmin ($name, $login, $email, $password) {
         $tmpSql = 'insert into admins(name, login, email, password) values(?, ?, ?, ?)';
-        $res = $config->makerSqlQuery($tmpSql, ["$name", "$login", "$email", "$password"]);
+        $res = $this->config->makerSqlQuery($tmpSql, ["$name", "$login", "$email", "$password"]);
         return $res;
     }
 
@@ -77,4 +82,3 @@ class adminModel {
         require_once "view/admin/signin.php";
     }
 }
-?>

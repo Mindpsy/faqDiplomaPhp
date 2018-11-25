@@ -1,16 +1,21 @@
 <?php 
-require_once "model/adminModel.php";
+require_once "model/AdminModel.php";
 
-class adminController {
+class AdminController {
+    public $config;
+
+    public function __construct($config) {
+        $this->config = $config;
+    }
     public function showAuthForm () {
-        $adminModel = new AdminModel();
+        $adminModel = new AdminModel($this->config);
         $adminModel->showAuthForm();
     }
 
-    public function authorise ($config) {
-        $adminModel = new adminModel();
+    public function authorise () {
+        $adminModel = new AdminModel($this->config);
         if(!empty($_GET['login']) && !empty($_GET['pass'])) {
-            $res = $adminModel->login($config, $_GET['login'], $_GET['pass']);
+            $res = $adminModel->login($_GET['login'], $_GET['pass']);
             if(!empty($res)) {
                 header('location: admin.php?controller=themes&action=showList');
             } else {
@@ -24,27 +29,27 @@ class adminController {
     }
 
     public function exitAcc () {
-        $adminModel = new adminModel();
+        $adminModel = new AdminModel($this->config);
         $adminModel->exitAcc();
         header ('location: admin.php');
     }
 
-    public function showListAdmins ($config) {
-        $adminModel = new adminModel();
-        $list = $adminModel->getListAdmins($config);
+    public function showListAdmins () {
+        $adminModel = new AdminModel($this->config);
+        $list = $adminModel->getListAdmins();
         if($list) {
             $adminModel->render($list);
         }
     }
 
     public function fillFormNewAdmin () {
-        $adminModel = new adminModel();
+        $adminModel = new AdminModel($this->config);
         $adminModel->showCreateAdminForm();
 
     }
 
-    public function fixEditionNewAdmin ($config) {
-        $adminModel = new adminModel();
+    public function fixEditionNewAdmin () {
+        $adminModel = new AdminModel($this->config);
         if(empty($_GET['nameAdmin']) || empty($_GET['login']) || empty($_GET['email']) || empty($_GET['password'])) {
             $adminModel->showCreateAdminForm();
             return;
@@ -61,10 +66,10 @@ class adminController {
         if(isset($_GET['password'])) {
             $password = $_GET['password'];
         }
-        $resLog = $adminModel->isLoginExist($config, $login);
+        $resLog = $adminModel->isLoginExist($login);
         if (!$resLog) {
             
-            $adminModel->createNewAdmin($config, $name, $login, $email, $password);
+            $adminModel->createNewAdmin($name, $login, $email, $password);
             header('location: admin.php?controller=admins&action=showList');
         } else {
             $true = 'true';
@@ -73,22 +78,22 @@ class adminController {
 
     }
 
-    public function deleteAdmin ($config) {
-        $adminModel = new adminModel();
+    public function deleteAdmin () {
+        $adminModel = new AdminModel($this->config);
         if(isset($_GET['idAdmin'])) {
             $idAdmin = $_GET['idAdmin'];
-            $adminModel->deleteAdmin($config, $idAdmin);
+            $adminModel->deleteAdmin($idAdmin);
             header('location: admin.php?controller=admins&action=showList');
         } else {
             echo '<li>Do not set parameter - idAdmin</i>';
         }
     }
 
-    public function toEditAdmin ($config) {
-        $adminModel = new adminModel();
+    public function toEditAdmin () {
+        $adminModel = new AdminModel($this->config);
         if(isset($_GET['idAdmin'])) {
             $idAdmin = $_GET['idAdmin'];
-            $admin = $adminModel->getAdminDataForId($config, $idAdmin);
+            $admin = $adminModel->getAdminDataForId($idAdmin);
             if(isset($admin)){
                 $adminModel->showEditAdminForm($idAdmin, $admin[0]['name'], $admin[0]['email'], $admin[0]['password']);
             }
@@ -97,8 +102,8 @@ class adminController {
         }
     }
 
-    public function fixEditAdmin ($config) {
-        $adminModel = new adminModel();
+    public function fixEditAdmin () {
+        $adminModel = new AdminModel($this->config);
 
         if(isset($_GET['nameAdmin'])) {
             $name = $_GET['nameAdmin'];
@@ -117,9 +122,7 @@ class adminController {
             return;
         }
 
-        $adminModel->updateAdmin($config, $idAdmin, $name, $email, $password);
+        $adminModel->updateAdmin($idAdmin, $name, $email, $password);
         header('location: admin.php?controller=admins&action=showList');
     }
 }
-
-?>
