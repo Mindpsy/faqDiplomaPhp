@@ -70,3 +70,5 @@ $config = new Config('localhost', 'faqData', 'root', '');  где 'localhost' э
 
 ## UNL схема базы данных и описание системы в гугл документе:
  <a href="https://docs.google.com/document/d/18vtuKs3FtWhX1CG26DDXTGU28ENLr73xjvm7C0Ebyp8/edit?usp=sharing">Ссылка</a>
+
+ <img src="uml.png">
