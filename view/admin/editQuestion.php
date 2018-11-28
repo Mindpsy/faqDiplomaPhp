@@ -68,7 +68,7 @@
                     <option value="<?=$theme['id'];?>" 
                         <?php if($theme['id'] == $idTheme): ?> 
                             selected <?php endif;?> > <?=$theme['name'];?> </option>
-                <? endforeach;?>
+                <?php endforeach;?>
                 </select>
                 <label>Тема вопроса</label>
             </div>
