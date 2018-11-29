@@ -1,20 +1,21 @@
 <?php
 
 class ThemeController {
-    public $config;
+    public $config, $modelTheme, $questionModel, $controllerQuestion;
 
     public function __construct($config) {
         $this->config = $config;
+        $this->modelTheme = new ThemeModel($this->config);
+        $this->questionModel = new QuestionModel ($this->config);
+        $this->controllerQuestion = new QuestionsController($this->config);
     }
 
     public function showThemes () {
-        $modelTheme = new ThemeModel($this->config);
-        $questionModel = new QuestionModel ($this->config);
-        $res = $modelTheme->getListThemes();
+        $res = $this->modelTheme->getListThemes();
         if($res) {
-            $modelTheme->render($res, $questionModel);
+            $this->modelTheme->render($res, $this->questionModel);
         } else {
-            $modelTheme->render(false, $questionModel);
+            $this->modelTheme->render(false, $this->questionModel);
         }
 
     }
@@ -22,8 +23,7 @@ class ThemeController {
     public function addNewTheme () {
         if (isset($_GET['nameTheme'])) {
             $nameTheme = $_GET['nameTheme'];
-            $modelTheme = new ThemeModel($this->config);
-            $res = $modelTheme->addNewTheme($nameTheme);
+            $res = $this->modelTheme->addNewTheme($nameTheme);
             header('location: admin.php?controller=themes&action=showList');
 
         } else {
@@ -33,17 +33,14 @@ class ThemeController {
     }
 
     public function fillNewTheme () {
-        $modelTheme = new ThemeModel($this->config);
-        $modelTheme->showFeldNewTheme();
+        $this->modelTheme->showFeldNewTheme();
     }
 
     public function delTheme () {
-        $modelTheme = new ThemeModel($this->config);
-        $controllerQuestion = new QuestionsController($this->config);
         if(isset($_GET['idTheme'])) {
             $idTheme = $_GET['idTheme'];
-            $modelTheme->delTheme($idTheme);
-            $controllerQuestion->deleteQuestionOfTheme();
+            $this->modelTheme->delTheme($idTheme);
+            $this->controllerQuestion->deleteQuestionOfTheme();
             header('location: admin.php?controller=themes&action=showList');
         }
 

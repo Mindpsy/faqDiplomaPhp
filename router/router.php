@@ -1,6 +1,4 @@
 <?php
-// автолоадер классов 
-require_once 'vendor/autoload.php';
 
 // настройки подключения к базе 
 require_once 'config.php';

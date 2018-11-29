@@ -484,3 +484,13 @@ footer {
   padding-top: 8px;
 }
 
+.button-two {
+  text-align: center;
+  display: inline-block;
+  height: 30px;
+  width: 200px;
+  background-color: rgb(224, 210, 2);
+  color: white;
+  padding-top: 8px;
+}
+

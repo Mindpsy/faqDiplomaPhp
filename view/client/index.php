@@ -9,16 +9,19 @@
 	<link rel="stylesheet" href="css/reset.css"> <!-- CSS reset -->
 	<link rel="stylesheet" href="css/style.css"> <!-- Resource style -->
 	<script src="js/modernizr.js"></script> <!-- Modernizr -->
+	<link rel="icon" type="image/png" href="favicon.png" />
 	<title>FAQ</title>
 </head>
 <body>
 	<header>
 		<h1>FAQ</h1>
 	</header>
+	
 
 	<div class="row">
 		<div class="col">
 			<a class="button" href="?controller=users&action=showAddForm">Добавить свой вопрос</a>
+			<a class="button-two" href="admin.php">Войти как админ</a>
 		</div>
 	</div>
 
