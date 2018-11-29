@@ -9,6 +9,7 @@ class QuestionsController {
         $this->questionModel = new QuestionModel($this->config);
         $this->answerModel = new AnswerModel($this->config);
         $this->userModel = new UserModel($this->config);
+        $this->themeModel = new ThemeModel($this->config);
     }
 
     public function showQuestionsOfTheme () {
