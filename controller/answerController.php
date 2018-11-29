@@ -11,7 +11,7 @@ class AnswerController {
 
     public function addNewAnswer () {
         if (isset($_GET['idTheme'])) {
-            $idTheme = 'idTheme='.$_GET['idTheme'];
+            $idTheme = '&idTheme='.$_GET['idTheme'];
             $action = 'showList';
         } else {
             $idTheme = '';
