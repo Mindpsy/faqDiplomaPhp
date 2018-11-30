@@ -29,9 +29,13 @@ $config->connectDataBase();
 
 // в переменных $commonControllers и $commonActions возможные значения для controller и action параметров 
 
-$commonControllers = ['Questions', 'admins', 'user', 'answers', 'base', 'form', 'themes'];
-$commonActions = ['showNewQuestions', 'exitAcc', 'login', 'auth', 'showList', 'addNew', 'editNew', 'delete', 'edit', 'fixEdit', 
-                'showPublList', 'showWithoutList', 'editNewAnswer', 'toPublQuestion', 'toHideQuestion', 'editAdmin', 'fixNewEdit'];
+$commonControllers = ['Questions', 'admins', 'user', 'answers', 'themes'];
+$commonActions = ['showNewQuestions', 'exitAcc', 'showList', 'addNew', 
+                    'editNew', 'delete', 'edit', 'fixEdit', 'showPublList', 
+                    'showWithoutList', 'editNewAnswer', 'toPublQuestion', 'toHideQuestion', 
+                    'editAdmin', 'fixNewEdit'];
+$noAuthControllers = ['base', 'form'];
+$noAuthActions = ['login', 'auth'];
 
 // если сессия жива 
 if(isset($_SESSION['authStatus'])) {
@@ -143,7 +147,7 @@ if(isset($_SESSION['authStatus'])) {
         $controller = 'form';
         $action = 'auth';
 
-    } else if (in_array($_GET['controller'], $commonControllers) && in_array($_GET['action'], $commonActions)) {
+    } else if (in_array($_GET['controller'], $noAuthControllers) && in_array($_GET['action'], $noAuthActions)) {
         $controller = $_GET['controller'];
         $action = $_GET['action'];
         
@@ -166,6 +170,4 @@ if(isset($_SESSION['authStatus'])) {
         }
         
     }
-
-
 }
