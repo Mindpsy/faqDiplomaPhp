@@ -2,7 +2,7 @@
     "autoload":{
         "classmap":["controller/AdminController.php", 
                     "controller/AnswerController.php", 
-                    "controller/QuestionController.php",
+                    "controller/QuestionsController.php",
                     "controller/ThemeController.php",
                     "controller/UserController.php",
                     "model/AdminModel.php", 
