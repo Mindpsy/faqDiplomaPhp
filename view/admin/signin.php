@@ -20,7 +20,7 @@
     </div>
     <div class="row s12 m12 l12 lx12">
         <div class="col s6 m6 l6 lx6 offset-s3 offset-m3 offset-l3 offset-lx3">
-            <form>
+            <form method="POST">
             <?php if(isset($wrong)): ?>
                 <div class="row">
                     <ul>
@@ -42,6 +42,7 @@
                         <label for="password">Пароль</label>
                     </div>
                 </div>
+                
                 <button class="btn waves-effect waves-light" type="submit">Войти
                     <i class="material-icons right">отправить</i>
                 </button>

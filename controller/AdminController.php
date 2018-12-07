@@ -12,8 +12,8 @@ public $config, $adminModel;
     }
 
     public function authorise () {
-        if(!empty($_GET['login']) && !empty($_GET['pass'])) {
-            $res = $this->adminModel->login($_GET['login'], $_GET['pass']);
+        if(!empty($_POST['login']) && !empty($_POST['pass'])) {
+            $res = $this->adminModel->login($_POST['login'], $_POST['pass']);
             if(!empty($res)) {
                 header('location: admin.php?controller=themes&action=showList');
             } else {

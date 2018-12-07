@@ -143,20 +143,19 @@ if(isset($_SESSION['authStatus'])) {
 
     // если сессии нет
 } else {
-    if (!isset($_GET['controller']) && !isset($_GET['action'])) {
+    if (!isset($_POST['controller']) && !isset($_POST['action'])) {
         $controller = 'form';
         $action = 'auth';
 
-    } else if (in_array($_GET['controller'], $noAuthControllers) && in_array($_GET['action'], $noAuthActions)) {
-        $controller = $_GET['controller'];
-        $action = $_GET['action'];
+    } else if (in_array($_POST['controller'], $noAuthControllers) && in_array($_POST['action'], $noAuthActions)) {
+        $controller = $_POST['controller'];
+        $action = $_POST['action'];
         
     } else {
         $controller = 'form';
         $action = 'auth';
     }
 
-    require_once 'controller/AdminController.php';
     $adminController = new AdminController($config);
 
     if($controller === 'form') {
